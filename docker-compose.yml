@@ -1,0 +1,28 @@
+version: "3.4"
+
+services:
+  fastapi:
+    image: fastapi:local
+    build:
+      context: .
+      target: debugger
+    environment:
+      PY_ENV: development
+      ASGI_ENV: docker
+      MONGO_URI: mongodb://mongodb-fastapi:27017
+      DB_RETRY_TIMES: 3
+      DB_RETRY_TIMEOUT_SECS: 3
+      DB_CONNECTION_KEY: client
+      DB_NAME: imdb
+      PORT: "8000"
+      HOST: "0.0.0.0"
+    ports:
+      - 8000:8000
+      - 5678:5678
+    depends_on:
+      - mongodb-fastapi
+
+  mongodb-fastapi:
+    container_name: mongodb-fastapi
+    image: mongo
+    restart: always
