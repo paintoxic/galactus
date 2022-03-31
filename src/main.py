@@ -1,4 +1,3 @@
-from threading import main_thread
 from packages.logger import init
 _LOGGER = init(__name__)
 

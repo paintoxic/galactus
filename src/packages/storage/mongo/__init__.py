@@ -2,6 +2,7 @@
 from pymongo import MongoClient
 CONNECTIONS = dict()
 
+
 def connect(uri, connection_key="default"):
     client = MongoClient(uri,
                          connect=True,
@@ -9,7 +10,7 @@ def connect(uri, connection_key="default"):
                          maxIdleTimeMS=10000,
                          socketTimeoutMS=10000,
                          connectTimeoutMS=100000)
-    CONNECTIONS[connection_key] = client    
+    CONNECTIONS[connection_key] = client
     return client
 
 
