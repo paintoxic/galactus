@@ -1,5 +1,5 @@
 
-from logging import Filter, LogRecord, getLogger
+from logging import Filter, getLogger
 from os import getenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -10,12 +10,14 @@ _ASGI_ENV = getenv('ASGI_ENV', _DEVELOPMENT_ENV)
 
 
 class Unless(Filter):
-    def filter(self, record: LogRecord) -> bool:
+    def filter(self, record) -> bool:
         _, method, path, _, _ = record.args
         return method == 'GET' and not path in [
             "/",
             "/healthy",
-            "/liveness"
+            "/liveness",
+            "/docs",
+            "/openapi.json"
         ]
 
 
